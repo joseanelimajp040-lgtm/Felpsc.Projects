@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meu Portfólio - Programador Iniciante</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* --- Variáveis de Cor e Estilos Globais (Inspirado no seu CSS) --- */
+        :root {
+            --cor-primaria: #FF6B00;
+            --cor-secundaria: #00A8A8;
+            --cor-fundo: #f8fafc; /* slate-50 */
+            --cor-texto-principal: #1e293b; /* slate-800 */
+            --cor-texto-secundario: #64748b; /* slate-500 */
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--cor-fundo);
+            color: var(--cor-texto-principal);
+            margin: 0;
+            padding: 40px 20px;
+            overflow-x: hidden; /* Evita scroll por causa das decorações */
+            position: relative; /* Contexto para elementos posicionados */
+        }
+
+        /* --- Elementos Decorativos de Fundo (Do seu CSS) --- */
+        .body-has-decorations::before,
+        .body-has-decorations::after {
+            content: '';
+            position: fixed;
+            z-index: -1;
+            filter: blur(100px);
+            will-change: transform;
+        }
+
+        @media (min-width: 1024px) {
+            .body-has-decorations::before {
+                width: 450px; height: 450px; background-color: var(--cor-primaria);
+                top: -200px; left: -220px; opacity: 0.6;
+            }
+            .body-has-decorations::after {
+                width: 550px; height: 550px; background-color: var(--cor-secundaria);
+                bottom: -250px; right: -250px; opacity: 0.6;
+            }
+        }
+        
+        /* --- Ícones Flutuantes (Do seu CSS) --- */
+        .side-icon {
+            position: fixed; color: rgba(40, 40, 40, 0.12); z-index: -1;
+            display: none; animation: float 4s ease-in-out infinite;
+        }
+        @media (min-width: 1024px) { .body-has-decorations .side-icon { display: block; } }
+        @keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-10px); } }
+        .side-icon.icon-1 { top: 15%; left: 8%; font-size: 2.5rem; transform: rotate(-15deg); }
+        .side-icon.icon-2 { bottom: 10%; left: 6%; font-size: 2rem; transform: rotate(5deg); animation-duration: 5s; }
+        .side-icon.icon-3 { top: 20%; right: 5%; font-size: 2.2rem; transform: rotate(15deg); animation-direction: reverse; }
+        .side-icon.icon-4 { bottom: 15%; right: 3%; font-size: 3.2rem; transform: rotate(8deg); animation-duration: 6s; }
+
+        /* --- Cabeçalho com Gradiente (Inspirado no .hero-gradient) --- */
+        header {
+            text-align: center;
+            padding: 40px 20px;
+            border-radius: 1rem;
+            margin: 0 auto 50px auto;
+            max-width: 900px;
+            background: linear-gradient(135deg, var(--cor-primaria) 0%, var(--cor-secundaria) 100%);
+            color: white;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        header h1 {
+            font-size: 2.8em;
+            font-weight: 700;
+            margin: 0;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+        header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+            margin-top: 10px;
+        }
+
+        /* --- Container dos Projetos --- */
+        .container-projetos {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+        }
+
+        /* --- Estilo do Card (Inspirado no .service-card) --- */
+        .card {
+            background-color: white;
+            border-radius: 1rem;
+            width: 340px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease-in-out;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 24px rgba(255, 107, 0, 0.2);
+        }
+        .card .link-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        .card-info {
+            padding: 20px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        .card-info h2 {
+            font-size: 1.5em;
+            font-weight: 600;
+            margin: 0 0 15px 0;
+            color: var(--cor-texto-principal);
+        }
+        .card-botoes {
+            margin-top: auto; /* Empurra os botões para o final do card */
+            padding-top: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* --- Estilo dos Botões (Inspirado no .service-action-btn) --- */
+        .botao-acao {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: white;
+            font-weight: 600;
+            padding: 8px 18px;
+            border-radius: 9999px;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+        .botao-acao:hover {
+            transform: scale(1.05);
+        }
+        .botao-curtir {
+            background-color: var(--cor-secundaria);
+        }
+        .botao-curtir:hover {
+            background-color: #007f7f; /* Tom mais escuro */
+        }
+        .botao-compartilhar {
+            background-color: var(--cor-primaria);
+        }
+        .botao-compartilhar:hover {
+            background-color: #E05E00; /* Tom mais escuro */
+        }
+        .botao-curtir .fa-heart.curtido {
+            color: #fce7f3; /* Rosa claro para contraste */
+        }
+    </style>
+</head>
+<body class="body-has-decorations">
+
+    <i class="fas fa-code side-icon icon-1"></i>
+    <i class="fas fa-cubes side-icon icon-2"></i>
+    <i class="fas fa-terminal side-icon icon-3"></i>
+    <i class="fas fa-file-alt side-icon icon-4"></i>
+
+    <header>
+        <h1>Meu Portfólio de Projetos</h1>
+        <p>Desenvolvedor em formação, apaixonado por criar soluções interativas e funcionais.</p>
+    </header>
+
+    <main class="container-projetos">
+
+        <div class="card">
+            <a href="https://joseanelimajp040-lgtm.github.io/jpet.clinica/#" target="_blank" class="link-card">
+                <img src="https://i.postimg.cc/KvgzwGX2/image-3.png" alt="J.A Pet Clíinica">
+            </a>
+            <div class="card-info">
+                <h2>Nome do Projeto 1</h2>
+                <div class="card-botoes">
+                    <button class="botao-acao botao-curtir">
+                        <i class="far fa-heart"></i>
+                        <span class="contador-curtidas">0</span>
+                    </button>
+                    <button class="botao-acao botao-compartilhar" data-url="#">
+                        <i class="fas fa-share-alt"></i>
+                        <span>Compartilhar</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <a href="#" target="_blank" class="link-card">
+                <img src="https://via.placeholder.com/400x250/00A8A8/FFFFFF?text=Outro+Projeto" alt="Print do Projeto 2">
+            </a>
+            <div class="card-info">
+                <h2>Nome do Projeto 2</h2>
+                <div class="card-botoes">
+                    <button class="botao-acao botao-curtir">
+                        <i class="far fa-heart"></i>
+                        <span class="contador-curtidas">0</span>
+                    </button>
+                    <button class="botao-acao botao-compartilhar" data-url="#">
+                        <i class="fas fa-share-alt"></i>
+                        <span>Compartilhar</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card">
+            <a href="#" target="_blank" class="link-card">
+                <img src="https://via.placeholder.com/400x250/333333/FFFFFF?text=Mais+Um+Trabalho" alt="Print do Projeto 3">
+            </a>
+            <div class="card-info">
+                <h2>Nome do Projeto 3</h2>
+                <div class="card-botoes">
+                    <button class="botao-acao botao-curtir">
+                        <i class="far fa-heart"></i>
+                        <span class="contador-curtidas">0</span>
+                    </button>
+                    <button class="botao-acao botao-compartilhar" data-url="#">
+                        <i class="fas fa-share-alt"></i>
+                        <span>Compartilhar</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // A lógica do JavaScript permanece a mesma, pois é muito eficiente!
+
+            // --- Funcionalidade de Curtir ---
+            const botoesCurtir = document.querySelectorAll('.botao-curtir');
+            botoesCurtir.forEach(botao => {
+                botao.addEventListener('click', function(event) {
+                    event.preventDefault();
+                    const iconeCoracao = this.querySelector('i');
+                    const contadorCurtidas = this.querySelector('.contador-curtidas');
+                    let contagem = parseInt(contadorCurtidas.textContent);
+
+                    if (iconeCoracao.classList.contains('fas')) {
+                        iconeCoracao.classList.remove('fas', 'curtido');
+                        iconeCoracao.classList.add('far');
+                        contagem--;
+                    } else {
+                        iconeCoracao.classList.remove('far');
+                        iconeCoracao.classList.add('fas', 'curtido');
+                        contagem++;
+                    }
+                    contadorCurtidas.textContent = contagem;
+                });
+            });
+
+            // --- Funcionalidade de Compartilhar ---
+            const botoesCompartilhar = document.querySelectorAll('.botao-compartilhar');
+            botoesCompartilhar.forEach(botao => {
+                botao.addEventListener('click', function(event) {
+                    event.preventDefault();
+                    const url = this.dataset.url;
+                    const card = this.closest('.card');
+                    const title = card.querySelector('h2').textContent;
+
+                    if (navigator.share) {
+                        navigator.share({
+                            title: `Confira este projeto: ${title}`,
+                            text: `Estou compartilhando um dos meus projetos de programação!`,
+                            url: url
+                        }).catch(console.error);
+                    } else {
+                        navigator.clipboard.writeText(url).then(() => {
+                            alert('Link do projeto copiado para a área de transferência!');
+                        }).catch(err => {
+                            alert('Não foi possível copiar o link. Por favor, copie manualmente: ' + url);
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
