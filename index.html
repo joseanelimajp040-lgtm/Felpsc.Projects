@@ -90,6 +90,7 @@
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
+            align-items: stretch; /* Garante que os cards tenham a mesma altura */
             gap: 30px;
         }
 
@@ -164,6 +165,69 @@
         .botao-curtir .fa-heart.curtido {
             color: #fce7f3; /* Rosa claro para contraste */
         }
+
+        /* ========== INÍCIO: ESTILOS DO CARD MISTERIOSO (ADICIONADO) ========== */
+        .mystery-vet-card {
+            position: relative; 
+            background-color: #f8fafc;
+            border: 3px dashed #cbd5e1;
+            transition: all 0.4s ease-in-out;
+            overflow: hidden;
+            cursor: pointer;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        .mystery-vet-card:hover {
+            border-color: #00A8A8;
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 10px 25px rgba(0, 168, 168, 0.2);
+        }
+        .mystery-content {
+            transition: all 0.4s ease;
+            padding: 20px;
+        }
+        .mystery-vet-card:hover .mystery-content {
+            transform: scale(0.9);
+            opacity: 0.1;
+            filter: blur(2px);
+        }
+        .mystery-icon {
+            font-size: 4rem;
+            color: #94a3b8;
+            animation: float-icon 3s ease-in-out infinite;
+        }
+        @keyframes float-icon {
+            0%, 100% { transform: translateY(0) rotate(0); }
+            50% { transform: translateY(-10px) rotate(5deg); }
+        }
+        .mystery-overlay {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(135deg, rgba(255, 107, 0, 0.95), rgba(0, 168, 168, 0.95));
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 1rem;
+            opacity: 0;
+            visibility: hidden;
+            transform: scale(0.9);
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+        }
+        .mystery-vet-card:hover .mystery-overlay {
+            opacity: 1;
+            visibility: visible;
+            transform: scale(1);
+        }
+        .mystery-text {
+            color: white;
+            font-size: 1.5rem;
+            font-weight: 700;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        /* ========== FIM: ESTILOS DO CARD MISTERIOSO ========== */
+
     </style>
 </head>
 <body class="body-has-decorations">
@@ -185,13 +249,13 @@
                 <img src="https://i.postimg.cc/KvgzwGX2/image-3.png" alt="J.A Pet Clíinica">
             </a>
             <div class="card-info">
-                <h2>J.A Pet Clíinica</h2>
+                <h2>J.A Pet Clínica</h2>
                 <div class="card-botoes">
                     <button class="botao-acao botao-curtir">
                         <i class="far fa-heart"></i>
                         <span class="contador-curtidas">0</span>
                     </button>
-                    <button class="botao-acao botao-compartilhar" data-url="#">
+                    <button class="botao-acao botao-compartilhar" data-url="https://joseanelimajp040-lgtm.github.io/jpet.clinica/#">
                         <i class="fas fa-share-alt"></i>
                         <span>Compartilhar</span>
                     </button>
@@ -210,7 +274,7 @@
                         <i class="far fa-heart"></i>
                         <span class="contador-curtidas">0</span>
                     </button>
-                    <button class="botao-acao botao-compartilhar" data-url="#">
+                    <button class="botao-acao botao-compartilhar" data-url="https://joseanelimajp040-lgtm.github.io/Genesis.Artificialinteligence/">
                         <i class="fas fa-share-alt"></i>
                         <span>Compartilhar</span>
                     </button>
@@ -218,30 +282,25 @@
             </div>
         </div>
         
-        <div class="card">
-            <a href="#" target="_blank" class="link-card">
-                <img src="https://via.placeholder.com/400x250/333333/FFFFFF?text=Mais+Um+Trabalho" alt="Print do Projeto 3">
-            </a>
-            <div class="card-info">
-                <h2>Nome do Projeto 3</h2>
-                <div class="card-botoes">
-                    <button class="botao-acao botao-curtir">
-                        <i class="far fa-heart"></i>
-                        <span class="contador-curtidas">0</span>
-                    </button>
-                    <button class="botao-acao botao-compartilhar" data-url="#">
-                        <i class="fas fa-share-alt"></i>
-                        <span>Compartilhar</span>
-                    </button>
-                </div>
+        <a href="#" class="card mystery-vet-card" style="text-decoration: none;">
+            <div class="mystery-content">
+              <i class="fas fa-hourglass-half mystery-icon"></i>
+              <h2 style="font-size: 1.5em; font-weight: 600; color: var(--cor-texto-secundario); margin-top: 15px;">Em Breve</h2>
+              <p style="color: var(--cor-texto-secundario);">Um novo projeto está a caminho...</p>
             </div>
-        </div>
+  
+            <div class="mystery-overlay">
+              <div class="mystery-text">
+                Aguarde Novidades!
+              </div>
+            </div>
+        </a>
 
     </main>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // A lógica do JavaScript permanece a mesma, pois é muito eficiente!
+            // A lógica do JavaScript continua a mesma e funcionará para os cards existentes.
 
             // --- Funcionalidade de Curtir ---
             const botoesCurtir = document.querySelectorAll('.botao-curtir');
